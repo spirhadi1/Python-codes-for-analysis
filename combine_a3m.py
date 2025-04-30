@@ -1,3 +1,23 @@
+"""
+combine_a3m.py
+
+This script combines two A3M or FASTA-formatted MSA files—each representing a separate protein chain—
+into a single unpaired multimer A3M format compatible with ColabFold.
+
+The resulting file maintains independent alignments for each chain and adds appropriate padding
+with gap characters, ensuring sequences remain unpaired during AlphaFold2 multimer inference.
+
+Usage:
+    python combine_a3m.py --chain_a path/to/chainA.a3m \
+                          --chain_b path/to/chainB.a3m \
+                          --output path/to/output.a3m
+
+Requirements:
+    - Python 3
+    - Biopython (install with `pip install biopython`)
+
+"""
+
 import os
 import argparse
 from Bio import SeqIO
@@ -30,7 +50,7 @@ def combine_unpaired_a3m(chain_a_path, chain_b_path, output_path):
     with open(output_path, "w") as f:
         f.write("\n".join(combined_lines) + "\n")
 
-    print(f"✅ Combined and written to: {output_path}")
+    print(f" Combined and written to: {output_path}")
 
 
 def parse_args():
